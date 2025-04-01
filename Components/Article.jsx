@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { getArticles, patchVotesByArtId } from '../api';
 import Comments from './Comments';
 import { useParams } from 'react-router';
@@ -10,8 +10,8 @@ import { Link } from 'react-router';
 export default function Article() {
 	const [article, setArticle] = useState([]);
 	const initialVotes = article.votes;
-
 	const [votes, setVotes] = useState(initialVotes);
+
 	const { article_id } = useParams();
 
 	useEffect(() => {
@@ -26,6 +26,9 @@ export default function Article() {
 			setVotes(article.votes);
 		});
 	};
+
+
+	const commentsRef = useRef(null)
 
 	return (
 		<>
@@ -51,7 +54,7 @@ export default function Article() {
 					</button>
 				</div>
 				<div>
-					<button className='comment-button'>
+					<button className='comment-button' onClick={() => {commentsRef.current?.scrollIntoView(); window.scrollBy(0, 370)}}>
 						<FaRegComment id='comment-icon' />
 						{article.comment_count}
 					</button>
@@ -64,7 +67,9 @@ export default function Article() {
 				Author: {article.author} <br />
 				<br />
 				<p id='article-body-text'>{article.body}</p>
-				<Comments article_id={article_id} />
+				<div ref={commentsRef}>
+				<Comments article_id={article_id}/>
+				</div>
 			</div>
 		</>
 	);

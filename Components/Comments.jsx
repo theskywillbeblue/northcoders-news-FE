@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
 import { getCommentsByArtId } from '../api.js';
 import { FaRegComment } from 'react-icons/fa';
 
-export default function Comments({ article_id }) {
+export default function Comments ({ article_id }) {
 	const [comments, setComments] = useState([]);
 
 	useEffect(() => {
@@ -10,6 +10,7 @@ export default function Comments({ article_id }) {
 			setComments(comments);
 		});
 	}, [article_id]);
+	
 
 	return (
 		<ul className='comments-all-container'>
