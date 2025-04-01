@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Header from '../Components/Header'
+import User from '../Components/User'
 import Articles from '../Components/Articles'
 import Article from '../Components/Article'
 import {Route, Routes} from "react-router"
@@ -13,7 +14,7 @@ function App() {
     <>
      <Header />
       <Routes>
-     
+        <Route path='/' element={<User />}/>
         <Route path='/articles' element={<Articles />} />
         <Route path='/articles/:article_id' element={<Article />} />
       </Routes>

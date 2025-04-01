@@ -4,6 +4,7 @@ import Comments from "./Comments"
 import { useParams } from 'react-router';
 import { FaRegComment } from 'react-icons/fa';
 import { BiUpvote } from 'react-icons/bi';
+import { Link } from 'react-router';
 
 export default function Article() {
 	const [article, setArticle] = useState([]);
@@ -16,6 +17,10 @@ export default function Article() {
 	}, [article_id]);
 
 	return (
+		<>
+		<Link to='/articles'>
+		<button className="back-button">Back to Articles</button>
+	</Link>
 		<div className='single-article'>
 			<h2>{article.title}</h2>
 			<br />
@@ -39,5 +44,6 @@ export default function Article() {
 			<p id='article-body-text'>{article.body}</p>
 			<Comments article_id={article_id}/>
 		</div>
+		</>
 	);
 }
