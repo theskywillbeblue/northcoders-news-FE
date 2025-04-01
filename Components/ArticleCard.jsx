@@ -1,5 +1,5 @@
 import Article from './Article'
-import getArticles from '../api';
+import {getArticles} from '../api';
 import { useNavigate } from 'react-router';
 
 export default function ArticleCard({article}) {
