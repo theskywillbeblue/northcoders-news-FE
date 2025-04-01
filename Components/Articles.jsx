@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import getArticles from '../api';
+import { getArticles } from '../api';
 import ArticleCard from './ArticleCard';
 
 export default function Articles() {
@@ -15,7 +15,7 @@ export default function Articles() {
 				setArticleList(data.articles);
 			})
 			.catch((err) => {
-				
+				setError(err)
 			})
 			.finally(() => {
 				setIsLoading(false);
@@ -26,7 +26,7 @@ export default function Articles() {
 		return <p>Articles are on their way...</p>;
 	}
 	if (error) {
-		
+		setIsLoading(false)
 		return <p>{error}</p>;
 	}
 	return (

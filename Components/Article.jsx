@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import getArticles from '../api';
+import {getArticles} from '../api';
+import Comments from "./Comments"
 import { useParams } from 'react-router';
 import { FaRegComment } from 'react-icons/fa';
 import { BiUpvote } from 'react-icons/bi';
@@ -33,9 +34,10 @@ export default function Article() {
 			<br />
 			Published: {new Date(article.created_at).toLocaleDateString()}
 			<br />
-			Topic: {article.topic} <br />
-			Author: {article.author} <br />
+			Topic: {article.topic} <br/>
+			Author: {article.author} <br/><br/>
 			<p id='article-body-text'>{article.body}</p>
+			<Comments article_id={article_id}/>
 		</div>
 	);
 }

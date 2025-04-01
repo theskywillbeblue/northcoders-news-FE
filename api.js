@@ -14,5 +14,14 @@ async function getArticles(article_id) {
 	}
 }
 
-export default getArticles;
+async function getCommentsByArtId(article_id) {
+	try {
+		const response = await api.get(`/articles/${article_id}/comments`);
+		return response.data;
+	} catch (err) {
+		throw err;
+	}
+}
+
+export {getArticles, getCommentsByArtId};
 
