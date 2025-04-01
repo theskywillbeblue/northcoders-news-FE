@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import Header from '../Components/Header'
 import Articles from '../Components/Articles'
+import Article from '../Components/Article'
+import {Route, Routes} from "react-router"
 import './App.css'
 
 
@@ -9,9 +11,12 @@ function App() {
 
   return (
     <>
+     <Header />
+      <Routes>
      
-      <Header />
-    <Articles />
+        <Route path='/articles' element={<Articles />} />
+        <Route path='/articles/:article_id' element={<Article />} />
+      </Routes>
       {/* <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
