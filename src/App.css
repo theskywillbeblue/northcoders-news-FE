@@ -115,7 +115,7 @@ button:focus-visible {
 
 .single-article {
 	width: 80%;
-  max-width: 1700px;
+	max-width: 1700px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -135,21 +135,6 @@ button:focus-visible {
 	border-radius: 8px;
 }
 
-.single-article-button-container {
-	display: flex;
-	align-self: start;
-	margin-left: 50px;
-}
-
-.article-buttons {
-	font-size: large;
-	margin: 4px;
-}
-
-#upvote-icon {
-	padding-top: 1.7px;
-	margin-right: 3px;
-}
 
 #comment-icon {
 	padding-top: 1.7px;
@@ -158,31 +143,59 @@ button:focus-visible {
 
 .comments-all-container {
 	margin-right: 45px;
-  margin-top: 30px;
+	margin-top: 30px;
 }
 
 .comment-card {
-  background-color: #d0d9cd;
-  border-radius: 8px;
+	background-color: #d0d9cd;
+	border-radius: 8px;
 	display: grid;
 	grid-template-columns: 2fr 1fr 12fr;
 	grid-template-rows: auto 1fr auto;
 	text-align: left;
-  padding: 10px;
-  margin: 10px;
+	padding: 10px;
+	margin: 10px;
 }
 
-.author-date h4{
+.author-date h4 {
 	display: flex;
-  flex-direction: row;
+	flex-direction: row;
 }
 
-#comment-icon-in-comment{
-  display: flex;
-  justify-self: center;
-  margin-top: 4px;
+#comment-icon-in-comment {
+	display: flex;
+	justify-self: center;
+	margin-top: 4px;
 }
 
-.back-button{
-  margin-bottom: 20px;
+.back-button {
+	margin-bottom: 20px;
+}
+
+.vote-button-group {
+	display: flex;
+	flex-direction: row;
+	border-radius: 8px;
+	align-self: start;
+	margin-left: 50px;
+}
+
+#vote-button {
+	cursor: pointer;
+	font-size: 18px;
+	background-color: #78866b;
+}
+
+/* Number in between vote buttons */
+.votes {
+	font-weight: bold;
+	font-size: 18px;
+	text-align: center;
+	background-color: #78866b;
+}
+
+.comment-button {
+	font-size: large;
+	font-weight: bold;
+	margin-left: 44px;
 }

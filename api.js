@@ -14,6 +14,15 @@ async function getArticles(article_id) {
 	}
 }
 
+async function patchVotesByArtId(article_id, vote) {
+	try {
+		const response = await api.patch(`/articles/${article_id}`, {'inc_votes': vote});
+		return response.data;
+	} catch (err) {
+		throw err;
+	}
+}
+
 async function getCommentsByArtId(article_id) {
 	try {
 		const response = await api.get(`/articles/${article_id}/comments`);
@@ -23,5 +32,5 @@ async function getCommentsByArtId(article_id) {
 	}
 }
 
-export {getArticles, getCommentsByArtId};
+export {getArticles, getCommentsByArtId, patchVotesByArtId};
 
