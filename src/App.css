@@ -26,13 +26,6 @@ ul{
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -53,11 +46,10 @@ a:hover {
   color: #535bf2;
 }
 
-
-h1 {
-  background-color: rgb(118, 164, 125);
+header{
+  background-color: #A9BA9D;
+  font-weight: 600;
   font-size: 3.2em;
-  line-height: 1.1;
   margin-bottom: 20px;
 }
 
@@ -65,19 +57,18 @@ button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #a4a4a4;
+  background-color: #78866B;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  background-color: #A9BA9D;
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 1px solid #91a181;
 }
 
 .articles-grid {
@@ -107,7 +98,7 @@ button:focus-visible {
   width: auto;
   padding: 15px;
   border-radius: 10px;
-  background-color: rgb(231, 231, 231);
+  background-color: #D0D9CD;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -120,4 +111,47 @@ button:focus-visible {
 .article-card:hover {
   transform: scale(1.03);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.single-article{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #eaeaea9c;
+}
+
+
+#article-body-text{
+  text-align: justify;
+  width: 90%;
+}
+
+#single-article-img{
+  width: 90%;
+  border-radius: 8px;
+}
+
+.single-article-button-container{
+  display: flex;
+  align-self: start;
+  margin-left: 50px;
+}
+
+.article-buttons{
+  font-size: large;
+  margin: 4px;
+}
+
+#upvote-icon{
+  padding-top: 1.7px;
+  margin-right: 3px;
+}
+
+#comment-icon{
+  padding-top: 1.7px;
+  margin-right: 3px;
 }

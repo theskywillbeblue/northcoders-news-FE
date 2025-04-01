@@ -13,10 +13,9 @@ export default function Articles() {
 		getArticles()
 			.then((data) => {
 				setArticleList(data.articles);
-				console.log(data.articles);
 			})
 			.catch((err) => {
-				console.log(err);
+				
 			})
 			.finally(() => {
 				setIsLoading(false);
@@ -27,7 +26,7 @@ export default function Articles() {
 		return <p>Articles are on their way...</p>;
 	}
 	if (error) {
-		console.log(error);
+		
 		return <p>{error}</p>;
 	}
 	return (

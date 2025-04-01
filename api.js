@@ -4,9 +4,10 @@ const api = axios.create({
 	baseURL: 'https://northcoders-news-app-jog4.onrender.com/api',
 });
 
-async function getArticles() {
+async function getArticles(article_id) {
 	try {
-		const response = await api.get('/articles');
+		const endpoint = article_id ? `/articles/${article_id}` : "/articles";
+		const response = await api.get(endpoint);
 		return response.data;
 	} catch (err) {
 		throw err;
@@ -14,3 +15,4 @@ async function getArticles() {
 }
 
 export default getArticles;
+
