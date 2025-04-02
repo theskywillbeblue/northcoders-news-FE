@@ -50,5 +50,14 @@ async function deleteCommentById(comment_id) {
 	}
 }
 
-export {getArticles, getCommentsByArtId, patchVotesByArtId, postCommentByArtId, deleteCommentById};
+async function getTopics() {
+	try {
+		const response = await api.get('/topics');
+		return response.data;
+	} catch (err) {
+		throw err;
+	}
+}
+
+export {getArticles, getCommentsByArtId, patchVotesByArtId, postCommentByArtId, deleteCommentById, getTopics};
 

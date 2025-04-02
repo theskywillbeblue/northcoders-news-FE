@@ -19,10 +19,14 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-h2{
-	margin-bottom: 10px;
-	text-align: center;
+.user-home{
+	display: flex;
+	align-items: center;
+	padding: 20px;
+	flex-direction: column; 
+	gap: 20px;
 }
+
 
 ul {
 	all: unset;
@@ -119,10 +123,11 @@ button:hover {
 }
 
 
+/* Single Article */
 
 .single-article {
-	width: 85%;
-	max-width: 1700px;
+	width: 80%;
+	max-width: 1500px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -131,10 +136,21 @@ button:hover {
 	border-radius: 10px;
 }
 
-/* Single Article */
+h2{
+	margin-bottom: 10px;
+	font-size: 2rem;
+	text-align: center;
+}
+
+#published-topic-author{
+	width: 90%;
+	text-align: left;
+	font-weight: 600;
+}
 
 #article-body-text {
 	text-align: justify;
+	font-size: large;
 	width: 90%;
 	margin-bottom: 40px;
 }
@@ -149,12 +165,7 @@ button:hover {
 	margin-right: 3px;
 }
 
-#published-topic-author{
-	text-align: left;
-	align-self: flex-start;
-	margin-left: 45px;
-	font-weight: 500;
-}
+/* Comments section in single article */
 
 .comments-all-container {
 	display: flex;
@@ -172,7 +183,14 @@ button:hover {
 	text-align: left;
 	padding: 5px 15px 5px 15px;
 	margin: 6px;
-	width: 90%;
+	width: 80%;
+}
+
+
+#comment-icon-in-comment {
+	display: flex;
+	justify-self: center;
+	margin-top: 4px;
 }
 
 #trash-icon {
@@ -186,11 +204,6 @@ button:hover {
 	flex-direction: row;
 }
 
-#comment-icon-in-comment {
-	display: flex;
-	justify-self: center;
-	margin-top: 4px;
-}
 
 .back-button {
 	display: inline-block;
@@ -199,17 +212,15 @@ button:hover {
 
 }
 
-.vote-button-group {
+#single-article-buttons{
+	width: 90%;
 	display: flex;
 	flex-direction: row;
 }
 
-/* Number in between vote buttons */
-.votes-digit-button {
-	border-radius: 0;
-}
-.votes-digit-button:hover {
-	background-color: #78866b;
+.vote-button-group {
+	display: flex;
+	flex-direction: row;
 }
 
 #upvote-button{
@@ -217,13 +228,33 @@ button:hover {
 	border-radius: 8px 0 0 8px;
 
 }
+/* Number in between vote buttons */
+.votes-digit-button {
+	border-radius: 0;
+	font-size: large;
+	padding-top: 13.48px;
+}
+.votes-digit-button:hover {
+	background-color: #78866b;
+}
+
 #downvote-button{
-	border-radius: initial;
+
 	border-radius: 0 8px 8px 0;
 }
 
 
-.comment-button {
+.see-comments-button {
+	display: flex;
+	align-items: center;
+	font-size: large;
+	margin-left: 20px;
+}
+
+.post-comment-button {
+	display: flex;
+	align-items: center;
+	font-size: large;
 	margin-left: 20px;
 }
 

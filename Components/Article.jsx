@@ -6,6 +6,7 @@ import { FaRegComment } from 'react-icons/fa';
 import { BiUpvote } from 'react-icons/bi';
 import { BiDownvote } from 'react-icons/bi';
 import { Link } from 'react-router';
+import { FaCommentMedical } from "react-icons/fa6";
 
 export default function Article() {
 	const [article, setArticle] = useState({});
@@ -42,32 +43,34 @@ export default function Article() {
 				<h2>{article.title}</h2>
 				<img src={article.article_img_url} id='single-article-img' />
 				<br />
+				<div id='single-article-buttons'>
 				<div className='vote-button-group'>
 					<div>
 						<button id="upvote-button" onClick={() => handleVote(1)}>
-							<BiUpvote id='arrow-vote-icons' />
+							<BiUpvote id='arrow-vote-icons' size={23}/>
 						</button>
 
 						<button className='votes-digit-button'>{votes}</button>
 
 						<button id="downvote-button" onClick={() => handleVote(-1)}>
-							<BiDownvote id='arrow-vote-icons' />
+							<BiDownvote id='arrow-vote-icons' size={23}/>
 						</button>
 					</div>
-					<div>
+					
 						<button
-							className='comment-button'
+							className='see-comments-button'
 							onClick={() => {
 								commentsRef.current?.scrollIntoView();
 							}}>
-							<FaRegComment id='comment-icon' />
-							{article.comment_count}
+							<FaRegComment id='comment-icon' size={23} />
+							 {article.comment_count}
 						</button>
 						<button
-							className='comment-button'
+							className='post-comment-button'
 							onClick={() => setShowCommentForm(!showCommentForm)}>
-							<FaRegComment id='comment-icon' />+
+							<FaRegComment id='comment-icon' size={23} />+
 						</button>
+					
 					</div>
 				</div>
 				<br />
