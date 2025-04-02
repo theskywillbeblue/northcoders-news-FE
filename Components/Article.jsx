@@ -29,6 +29,7 @@ export default function Article() {
 		}).catch((err)=>{console.log(err)})
 	};
 
+
 	const commentsRef = useRef(null);
 
 

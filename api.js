@@ -41,5 +41,14 @@ async function postCommentByArtId(article_id, commentBody) {
 	}
 }
 
-export {getArticles, getCommentsByArtId, patchVotesByArtId, postCommentByArtId};
+async function deleteCommentById(comment_id) {
+	try {
+		const response = await api.delete(`/comments/${comment_id}`);
+		return response;
+	} catch (err) {
+		throw err;
+	}
+}
+
+export {getArticles, getCommentsByArtId, patchVotesByArtId, postCommentByArtId, deleteCommentById};
 

@@ -1,11 +1,14 @@
 import { useEffect, useState, useContext } from 'react';
-import {UserContext} from '../Contexts/userContext.jsx'
-import { getCommentsByArtId, postCommentByArtId } from '../api.js';
+import { UserContext } from '../Contexts/userContext.jsx';
+import {
+	getCommentsByArtId,
+	postCommentByArtId,
+	deleteCommentById,
+} from '../api.js';
 import { FaRegComment } from 'react-icons/fa';
-import { MdDeleteOutline } from "react-icons/md";
+import { MdDeleteOutline } from 'react-icons/md';
 
 export default function Comments({ article_id, showCommentForm }) {
-
 	const { user } = useContext(UserContext);
 	const [comments, setComments] = useState([]);
 	const [commentBody, setCommentBody] = useState('');
@@ -16,52 +19,67 @@ export default function Comments({ article_id, showCommentForm }) {
 		});
 	}, [article_id]);
 
-
-
 	const handleCommentSubmit = (e) => {
 		e.preventDefault();
 		postCommentByArtId(article_id, commentBody)
-        .then(() => {
-            setCommentBody(''); 
-     
-            return getCommentsByArtId(article_id);
-        })
-        .then(({ comments }) => {
-            setComments(comments); 
-        })
-        .catch((err) => err);
-};
+			.then(() => {
+				setCommentBody('');
 
-	return (<>
-		<ul className='comments-all-container'>
-			{comments.map((comment) => (
-				<li className='comment-card' key={comment.comment_id}>
-					<div className='author-date'>
-						<h4>{comment.author} </h4>
-						{new Date(comment.created_at).toLocaleDateString()}
-					</div>
-					<FaRegComment id='comment-icon-in-comment' size='20px' />
-					<p className='body'>{comment.body}</p>
-					Votes:
-					{comment.votes}
-					{comment.author === user.username? <MdDeleteOutline id='trash-icon'/> : null}
-				</li>
-			
-			))}
-		</ul>
+				return getCommentsByArtId(article_id);
+			})
+			.then(({ comments }) => {
+				setComments(comments);
+			})
+			.catch((err) => err);
+	};
+
+	const handleDeleteComment = (comment_id) => {
+		deleteCommentById(comment_id);
+		
+			return getCommentsByArtId(article_id)
+			.then(({comments}) => {
+				setComments(comments);
+				alert('Comment successfully removed');
+			})
+			.catch(() => {
+				alert('There was an error deleting the comment. Please try again.');
+			});
+	};
+
+	return (
+		<>
+			<ul className='comments-all-container'>
+				{comments.map((comment) => (
+					<li className='comment-card' key={comment.comment_id}>
+						<div className='author-date'>
+							<h4>{comment.author} </h4>
+							{new Date(comment.created_at).toLocaleDateString()}
+						</div>
+						<FaRegComment id='comment-icon-in-comment' size='20px' />
+						<p className='body'>{comment.body}</p>
+						Votes:
+						{comment.votes}
+						{comment.author === user.username ? (
+							<MdDeleteOutline
+								id='trash-icon'
+								onClick={() => handleDeleteComment(comment.comment_id)}
+							/>
+						) : null}
+					</li>
+				))}
+			</ul>
 			{showCommentForm && (
 				<form onSubmit={handleCommentSubmit} className='comment-form'>
-					<textarea id='comment-form-input' type="text"
+					<textarea
+						id='comment-form-input'
+						type='text'
 						value={commentBody}
 						onChange={(e) => setCommentBody(e.target.value)}
-						placeholder='comment body'
-						required
-					></textarea>
+						placeholder='pop your comment here...'
+						required></textarea>
 					<button type='submit'>Post</button>
 				</form>
 			)}
-			</>
+		</>
 	);
 }
-
-
