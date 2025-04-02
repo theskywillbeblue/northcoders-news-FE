@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react';
 import { getArticles } from '../api';
 import ArticleCard from './ArticleCard';
+import { useSearchParams } from 'react-router';
 
 export default function Articles() {
 	const [articleList, setArticleList] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const [searchParams, setSearchParams] = useSearchParams();
 
 	useEffect(() => {
+
+		const topic = searchParams.get('topic');
+
 		setError(null);
 		setIsLoading(true);
-		getArticles()
+		getArticles(null, topic)
 			.then((data) => {
 				setArticleList(data.articles);
 			})
@@ -20,7 +25,7 @@ export default function Articles() {
 			.finally(() => {
 				setIsLoading(false);
 			});
-	}, []);
+	}, [searchParams]);
 
 	if (isLoading) {
 		return <p>Articles are on their way...</p>;
@@ -31,7 +36,6 @@ export default function Articles() {
 	}
 	return (
 		<>
-			<h2>Articles</h2>
 			<ul className='articles-grid'>
 				{articleList.map((article) => (
 					<ArticleCard key={article.article_id} article={article} />

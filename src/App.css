@@ -3,6 +3,8 @@
 	margin: 0;
 }
 
+body{background-color: #E1E3DB;}
+
 #root {
 	max-width: 100%;
 	margin: 0 auto;
@@ -36,11 +38,11 @@ ul {
 
 a {
 	font-weight: 500;
-	color: #646cff;
+	color: #21221B;
 	text-decoration: inherit;
 }
 a:hover {
-	color: #535bf2;
+	color: #787E63;
 }
 
 header {
@@ -63,7 +65,7 @@ header {
 	margin-right: 6%;
 }
 
-button {
+button, select{
 	border-radius: 8px;
 	border: solid transparent;
 	padding: 0.5em 0.8em;
@@ -235,7 +237,7 @@ h2{
 	padding-top: 13.48px;
 }
 .votes-digit-button:hover {
-	background-color: #78866b;
+	background-color: #83896C;
 }
 
 #downvote-button{
@@ -286,3 +288,42 @@ h2{
 	outline: none;
 	box-shadow: 0 0 9px #FFFFFF;
   }
+
+
+  /* Topics */
+
+#topic-card-title {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	font-weight: 500;
+	margin-bottom: 6px;
+	text-align: center;
+}
+
+.topic-card {
+	display: flex;
+	align-items: center;
+	justify-content:center;
+	gap: 40px;
+	min-width: 200px;
+	margin: 0 15px 15px 15px;
+	padding: 25px;
+	border-radius: 10px;
+	background-color: #DADCD2;
+	transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.topic-card:hover {
+	transform: scale(1.03);
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#topic-img {
+	width: 10%;
+	border-radius: 18%;
+}
+#select-topic-header{
+	margin-bottom: 0;
+	margin-top: 30px;
+}

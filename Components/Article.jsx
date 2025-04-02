@@ -27,7 +27,7 @@ export default function Article() {
 	const handleVote = (vote) => {
 		patchVotesByArtId(article_id, vote).then(({ article }) => {
 			setVotes(article.votes);
-		}).catch((err)=>{console.log(err)})
+		}).catch((err)=> setError(err))
 	};
 
 

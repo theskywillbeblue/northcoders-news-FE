@@ -4,10 +4,10 @@ const api = axios.create({
 	baseURL: 'https://northcoders-news-app-jog4.onrender.com/api',
 });
 
-async function getArticles(article_id) {
+async function getArticles(article_id, topic) {
 	try {
-		const endpoint = article_id ? `/articles/${article_id}` : "/articles";
-		const response = await api.get(endpoint);
+		const endpoint = article_id ? `/articles/${article_id}` : '/articles';
+		const response = await api.get(endpoint, { params: { topic } });
 		return response.data;
 	} catch (err) {
 		throw err;
@@ -16,7 +16,9 @@ async function getArticles(article_id) {
 
 async function patchVotesByArtId(article_id, vote) {
 	try {
-		const response = await api.patch(`/articles/${article_id}`, {'inc_votes': vote});
+		const response = await api.patch(`/articles/${article_id}`, {
+			inc_votes: vote,
+		});
 		return response.data;
 	} catch (err) {
 		throw err;
@@ -34,7 +36,10 @@ async function getCommentsByArtId(article_id) {
 
 async function postCommentByArtId(article_id, commentBody) {
 	try {
-		const response = await api.post(`/articles/${article_id}/comments`, {'username': 'tickle122', 'body': commentBody});
+		const response = await api.post(`/articles/${article_id}/comments`, {
+			username: 'tickle122',
+			body: commentBody,
+		});
 		return response.data;
 	} catch (err) {
 		throw err;
@@ -59,5 +64,12 @@ async function getTopics() {
 	}
 }
 
-export {getArticles, getCommentsByArtId, patchVotesByArtId, postCommentByArtId, deleteCommentById, getTopics};
+export {
+	getArticles,
+	getCommentsByArtId,
+	patchVotesByArtId,
+	postCommentByArtId,
+	deleteCommentById,
+	getTopics,
+};
 
