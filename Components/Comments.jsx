@@ -30,7 +30,7 @@ export default function Comments({ article_id, showCommentForm }) {
 			.then(({ comments }) => {
 				setComments(comments);
 			})
-			.catch((err) => err);
+			.catch((err) => SetErr(err));
 	};
 
 	const handleDeleteComment = (comment_id) => {
