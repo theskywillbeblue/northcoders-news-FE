@@ -11,24 +11,26 @@ export default function Article() {
 	const [article, setArticle] = useState([]);
 	const initialVotes = article.votes;
 	const [votes, setVotes] = useState(initialVotes);
+	const [showCommentForm, setShowCommentForm] = useState(false)
+
 
 	const { article_id } = useParams();
 
 	useEffect(() => {
 		getArticles(article_id).then(({ article }) => {
 			setArticle(article);
-			setVotes(article.votes)
+			setVotes(article.votes);
 		});
 	}, [article_id]);
 
 	const handleVote = (vote) => {
 		patchVotesByArtId(article_id, vote).then(({ article }) => {
 			setVotes(article.votes);
-		});
+		}).catch((err)=>{console.log(err)})
 	};
 
+	const commentsRef = useRef(null);
 
-	const commentsRef = useRef(null)
 
 	return (
 		<>
@@ -37,38 +39,48 @@ export default function Article() {
 			</Link>
 			<div className='single-article'>
 				<h2>{article.title}</h2>
-				<br />
 				<img src={article.article_img_url} id='single-article-img' />
 				<br />
-
 				<div className='vote-button-group'>
-				<div>
-					<button onClick={() => handleVote(1)}>
-						<BiUpvote id='vote-button' />
-					</button>
+					<div>
+						<button id="upvote-button" onClick={() => handleVote(1)}>
+							<BiUpvote id='arrow-vote-icons' />
+						</button>
 
-					<button className='votes'>{votes}</button>
+						<button className='votes-digit-button'>{votes}</button>
 
-					<button onClick={() => handleVote(-1)}>
-						<BiDownvote id='vote-button' />
-					</button>
-				</div>
-				<div>
-					<button className='comment-button' onClick={() => {commentsRef.current?.scrollIntoView(); window.scrollBy(0, 370)}}>
-						<FaRegComment id='comment-icon' />
-						{article.comment_count}
-					</button>
-				</div>
+						<button id="downvote-button" onClick={() => handleVote(-1)}>
+							<BiDownvote id='arrow-vote-icons' />
+						</button>
+					</div>
+					<div>
+						<button
+							className='comment-button'
+							onClick={() => {
+								commentsRef.current?.scrollIntoView();
+							}}>
+							<FaRegComment id='comment-icon' />
+							{article.comment_count}
+						</button>
+						<button
+							className='comment-button'
+							onClick={() => setShowCommentForm(!showCommentForm)}>
+							<FaRegComment id='comment-icon' />+
+						</button>
+					</div>
 				</div>
 				<br />
-				Published: {new Date(article.created_at).toLocaleDateString()}
+				<div id="published-topic-author">
+				Author: {article.author}
 				<br />
 				Topic: {article.topic} <br />
-				Author: {article.author} <br />
+				Published: {new Date(article.created_at).toLocaleDateString()}
+				</div>
 				<br />
 				<p id='article-body-text'>{article.body}</p>
 				<div ref={commentsRef}>
-				<Comments article_id={article_id}/>
+					<Comments article_id={article_id} showCommentForm={showCommentForm}/>
+					
 				</div>
 			</div>
 		</>

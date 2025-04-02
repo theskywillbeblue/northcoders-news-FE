@@ -32,5 +32,14 @@ async function getCommentsByArtId(article_id) {
 	}
 }
 
-export {getArticles, getCommentsByArtId, patchVotesByArtId};
+async function postCommentByArtId(article_id, commentBody) {
+	try {
+		const response = await api.post(`/articles/${article_id}/comments`, {'username': 'tickle122', 'body': commentBody});
+		return response.data;
+	} catch (err) {
+		throw err;
+	}
+}
+
+export {getArticles, getCommentsByArtId, patchVotesByArtId, postCommentByArtId};
 

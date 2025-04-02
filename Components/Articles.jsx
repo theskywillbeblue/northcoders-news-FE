@@ -15,7 +15,7 @@ export default function Articles() {
 				setArticleList(data.articles);
 			})
 			.catch((err) => {
-				setError(err)
+				setError(err);
 			})
 			.finally(() => {
 				setIsLoading(false);
@@ -26,17 +26,17 @@ export default function Articles() {
 		return <p>Articles are on their way...</p>;
 	}
 	if (error) {
-		setIsLoading(false)
+		setIsLoading(false);
 		return <p>{error}</p>;
 	}
 	return (
 		<>
-        <h2>Articles</h2>
-        <ul className='articles-grid'>
-			{articleList.map((article) => (
-				<ArticleCard key ={article.article_id} article={article}/>
-			))}
-            </ul>
+			<h2>Articles</h2>
+			<ul className='articles-grid'>
+				{articleList.map((article) => (
+					<ArticleCard key={article.article_id} article={article} />
+				))}
+			</ul>
 		</>
 	);
 }
