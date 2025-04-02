@@ -8,8 +8,8 @@ import { BiDownvote } from 'react-icons/bi';
 import { Link } from 'react-router';
 
 export default function Article() {
-	const [article, setArticle] = useState([]);
-	const initialVotes = article.votes;
+	const [article, setArticle] = useState({});
+	const initialVotes = 0;
 	const [votes, setVotes] = useState(initialVotes);
 	const [showCommentForm, setShowCommentForm] = useState(false)
 
