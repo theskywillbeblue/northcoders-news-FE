@@ -13,10 +13,16 @@ export default function TopicCard({ topic }) {
 		cooking: cooking,
 	};
 
+	const topicNames = {
+		coding: 'Coding',
+		football: 'Football',
+		cooking: 'Cooking',
+	}
+
 	return (
         <Link to={`/articles?topic=${topic}`}>
 		<li className='topic-card'>
-			<h2 id='topic-card-titles'>{topic}</h2>
+			<h2 id='topic-card-titles'>{topicNames[topic]}</h2>
 			<img src={images[topic] || defaultImage} id="topic-img"/>
 		</li>
         </Link>

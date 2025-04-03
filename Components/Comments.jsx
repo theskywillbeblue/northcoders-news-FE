@@ -1,9 +1,8 @@
-import { getCommentsByArtId, deleteCommentById } from '../api.js';
-import { UserContext } from '../Contexts/userContext.jsx';
+import { getCommentsByArtId, deleteCommentById } from '../api';
+import { UserContext } from '../Contexts/userContext';
 import { useEffect, useState, useContext } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { FaRegComment } from 'react-icons/fa';
-
 
 export default function Comments({ article_id }) {
 	const { user } = useContext(UserContext);
@@ -43,7 +42,8 @@ export default function Comments({ article_id }) {
 						{comment.votes}
 						{comment.author === user.username ? (
 							<MdDeleteOutline
-								id='trash-icon' size='20px'
+								id='trash-icon'
+								size='20px'
 								onClick={() => handleDeleteComment(comment.comment_id)}
 							/>
 						) : null}

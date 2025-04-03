@@ -1,9 +1,9 @@
 import { useSearchParams } from 'react-router';
 import { useState, useEffect } from 'react';
-import ArticleCard from './ArticleCard';
 import { getArticles } from '../api';
 import { Dropdown } from 'primereact/dropdown';
-import { FloatLabel } from 'primereact/floatlabel';
+import { FloatLabel } from 'primereact/floatlabel'
+import ArticleCard from './ArticleCard';;
 import 'primereact/resources/themes/lara-light-cyan/theme.css';
 
 export default function Articles() {
