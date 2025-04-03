@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react';
-import { getArticles } from '../api';
-import ArticleCard from './ArticleCard';
 import { useSearchParams } from 'react-router';
+import { useState, useEffect } from 'react';
+import ArticleCard from './ArticleCard';
+import { getArticles } from '../api';
+
+
 
 export default function Articles() {
+	const [searchParams] = useSearchParams();
 	const [articleList, setArticleList] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const [searchParams, setSearchParams] = useSearchParams();
+	
 
 	useEffect(() => {
-
 		const topic = searchParams.get('topic');
 
 		setError(null);
@@ -18,22 +20,27 @@ export default function Articles() {
 		getArticles(null, topic)
 			.then((data) => {
 				setArticleList(data.articles);
+				setIsLoading(false);
 			})
 			.catch((err) => {
 				setError(err);
 			})
-			.finally(() => {
-				setIsLoading(false);
-			});
+		
 	}, [searchParams]);
 
+
 	if (isLoading) {
-		return <p>Articles are on their way...</p>;
+		return (
+			<div align='center' padding-top='80px'>
+				articles are on their way...
+			</div>
+		);
 	}
 	if (error) {
 		setIsLoading(false);
 		return <p>{error}</p>;
 	}
+
 	return (
 		<>
 			<ul className='articles-grid'>
