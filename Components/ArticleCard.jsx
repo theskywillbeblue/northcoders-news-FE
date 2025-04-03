@@ -16,7 +16,9 @@ export default function ArticleCard({ article }) {
 				handleClick(article);
 			}}>
 			<h3 id='article-card-title'>{article.title}</h3>
+			<div id="article-card-image-container">
 			<img id='article-img' src={article.article_img_url} alt={article.title} />
+			</div>
 			<p>Published: {new Date(article.created_at).toLocaleDateString()}</p>
 		</li>
 	);

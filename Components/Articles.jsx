@@ -4,15 +4,15 @@ import ArticleCard from './ArticleCard';
 import { getArticles } from '../api';
 import { Dropdown } from 'primereact/dropdown';
 import { FloatLabel } from 'primereact/floatlabel';
-import "primereact/resources/themes/lara-light-cyan/theme.css";
+import 'primereact/resources/themes/lara-light-cyan/theme.css';
 
 export default function Articles() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [articleList, setArticleList] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const [selectedOption, setSelectedOption] = useState(null);
-	const [selectedOrder, setSelectedOrder] = useState(null);
+	const [selectedOption, setSelectedOption] = useState('created_at');
+	const [selectedOrder, setSelectedOrder] = useState('desc');
 
 	const topic = searchParams.get('topic');
 	const sortBy = searchParams.get('sort_by');
@@ -20,25 +20,42 @@ export default function Articles() {
 
 	const handleSortChange = (value) => {
 		if (value !== sortBy) {
-		setSelectedOption(value);
-		setSearchParams((prev) => {
-			const newParams = new URLSearchParams(prev);
-			newParams.set('sort_by', value);
-			return newParams;
-		});
-	}
+			setSelectedOption(value);
+			setSearchParams((prev) => {
+				const newParams = new URLSearchParams(prev);
+				newParams.set('sort_by', value);
+				return newParams;
+			});
+		}
 	};
 
 	const handleOrderChange = (value) => {
 		if (value !== order) {
-		setSelectedOrder(value);
-		setSearchParams((prev) => {
-			const newParams = new URLSearchParams(prev);
-			newParams.set('order', value);
-			return newParams;
-		});
-	}
+			setSelectedOrder(value);
+			setSearchParams((prev) => {
+				const newParams = new URLSearchParams(prev);
+				newParams.set('order', value);
+				return newParams;
+			});
+		}
 	};
+
+	useEffect(() => {
+		if (!sortBy) {
+			setSearchParams((prev) => {
+				const newParams = new URLSearchParams(prev);
+				newParams.set('sort_by', 'created_at');
+				return newParams;
+			});
+		}
+		if (!order) {
+			setSearchParams((prev) => {
+				const newParams = new URLSearchParams(prev);
+				newParams.set('order', 'desc');
+				return newParams;
+			});
+		}
+	}, [sortBy, order, setSearchParams]);
 
 	useEffect(() => {
 		setSelectedOption(sortBy);
@@ -46,7 +63,6 @@ export default function Articles() {
 	}, [sortBy, order]);
 
 	useEffect(() => {
-		setError(null);
 		setIsLoading(true);
 		getArticles(null, topic, sortBy, order)
 			.then((data) => {
@@ -54,20 +70,21 @@ export default function Articles() {
 				setIsLoading(false);
 			})
 			.catch((err) => {
-				setError(err);
+				console.log(err)
+				if (err.message.includes('404')) {
+					setError('Currently, there are no articles for that topic!');
+				} else setError('Houston, we have a problem!');
+				setIsLoading(false);
 			});
 	}, [searchParams]);
 
 	if (isLoading) {
-		return (
-			<div id='loading'>
-				articles are on their way...
-			</div>
-		);
+		return <div id='loading-and-errors'>Articles are on their way...</div>;
 	}
 	if (error) {
-		setIsLoading(false);
-		return <p>{error}</p>;
+		return (
+			<div id='loading-and-errors'>Houston, we have a problem! {error}</div>
+		);
 	}
 
 	const sortOptions = [
@@ -78,7 +95,7 @@ export default function Articles() {
 
 	const orderOptions = [
 		{ label: 'Ascending', value: 'asc' },
-		{ label: 'Descending', value: 'desc' }
+		{ label: 'Descending', value: 'desc' },
 	];
 
 	return (
@@ -90,7 +107,7 @@ export default function Articles() {
 						value={selectedOption}
 						onChange={(e) => handleSortChange(e.value)}
 						options={sortOptions}
-						/>
+					/>
 					<label htmlFor='sorting articles'>Sort By</label>
 				</FloatLabel>
 				<FloatLabel id='orderby-label'>
@@ -99,10 +116,10 @@ export default function Articles() {
 						value={selectedOrder}
 						onChange={(e) => handleOrderChange(e.value)}
 						options={orderOptions}
-						/>
+					/>
 					<label htmlFor='sorting articles'>Order By</label>
 				</FloatLabel>
-				</div>
+			</div>
 
 			<ul className='articles-grid'>
 				{articleList.map((article) => (

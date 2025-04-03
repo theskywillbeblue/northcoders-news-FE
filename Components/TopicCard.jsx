@@ -16,7 +16,7 @@ export default function TopicCard({ topic }) {
 	return (
         <Link to={`/articles?topic=${topic}`}>
 		<li className='topic-card'>
-			<h2 id='topic-card-title'>{topic}</h2>
+			<h2 id='topic-card-titles'>{topic}</h2>
 			<img src={images[topic] || defaultImage} id="topic-img"/>
 		</li>
         </Link>

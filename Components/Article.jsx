@@ -16,26 +16,14 @@ export default function Article() {
 	const initialVotes = 0;
 	const [votes, setVotes] = useState(initialVotes);
 
-	useEffect(() => {
-		setError(null);
-		setIsLoading(true);
-		getArticles(article_id)
-			.then(({ article }) => {
-				setArticle(article);
-				setVotes(article.votes);
-				setIsLoading(false);
-			})
-			.catch((err) => {
-				setError(err);
-			});
-	}, [article_id]);
-
 	const handleVote = (vote) => {
 		patchVotesByArtId(article_id, vote)
 			.then(({ article }) => {
 				setVotes(article.votes);
 			})
-			.catch((err) => setError(err));
+			.catch(() => {
+				setError('Houston, we have a problem!');
+			});
 	};
 
 	const handleCommentSubmit = (e) => {
@@ -48,14 +36,34 @@ export default function Article() {
 			.then(({ comments }) => {
 				setComments(comments);
 			})
-			.catch(() => {});
+			.catch(() => {
+				setError('Houston, we have a problem!');
+			});
 	};
 
+	useEffect(() => {
+		setIsLoading(true);
+		getArticles(article_id)
+			.then(({ article }) => {
+				setArticle(article);
+				setVotes(article.votes);
+				setIsLoading(false);
+			})
+			.catch((err) => {
+				if (err.message.includes('404')) {
+					setError('Article not found!');
+				} else setError('Houston, we have a problem!');
+				setIsLoading(false);
+			});
+	}, [article_id]);
+
 	if (isLoading) {
-		return <div id='loading'>article incoming...</div>;
+		return <div id='loading-and-errors'>Article incoming...</div>;
 	}
 	if (error) {
-		return <p>{error}</p>;
+		return (
+			<div id='loading-and-errors'>Houston, we have a problem, {error}</div>
+		);
 	}
 
 	return (
