@@ -14,10 +14,9 @@ body {
 }
 
 :root {
-	font-family: Avenir;
+	font-family: Avenir, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-
 	font-synthesis: none;
 	line-height: 1.4;
 	text-rendering: optimizeLegibility;
@@ -51,20 +50,21 @@ header {
 	align-items: center;
 	background: #e8e4e1;
 	width: 100vw;
+	height: 8.5rem;
 	position: relative;
 }
 
 .logo {
+	width: 100%;
 	filter: drop-shadow(3px 4px 6px rgba(0, 0, 0, 0.13));
-	height: 10.5em;
-	padding: 1.3em 0.3em 1.3em 0;
-	transition: filter 0.3s ease-in-out;
+	height: auto;
+	transition: filter 1.2s ease-in-out;
 }
 
 .user-logo {
 	border-radius: 8%;
 	filter: drop-shadow(3px 4px 6px rgba(0, 0, 0, 0.13));
-	height: 5.5em;
+	height: 4em;
 	transition: filter 0.3s ease-in-out;
 	position: absolute;
 	right: 8%;
@@ -72,7 +72,11 @@ header {
 	transform: translateY(-50%);
 }
 
-.logo:hover,
+.logo:hover {
+	transform: scale(1.1);
+	filter: drop-shadow(0 0 15px #c2a7a6);
+}
+
 .user-logo:hover {
 	filter: drop-shadow(0 0 15px #c2a7a6);
 }
@@ -122,7 +126,7 @@ button:hover {
 
 .p-dropdown:focus-within {
 	border-color: #a5aa93 !important;
-	box-shadow: 0 0 5px #a5aa93 !important; /* Custom glow */
+	box-shadow: 0 0 5px #a5aa93 !important;
 }
 .p-dropdown-item.p-highlight {
 	background-color: #b3b7a1 !important;
@@ -417,4 +421,128 @@ h2 {
 
 #profile-pic {
 	width: 8rem;
+}
+
+
+
+/* new media queries added */
+
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+	/* Header */
+	header {
+		height: 6rem; /* Adjust header height */
+	}
+
+	.user-logo {
+		height: 4.5em; /* Resize user logo */
+		right: 5%; /* Move the logo closer */
+	}
+
+	/* Article Cards */
+	.articles-grid {
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust grid */
+		width: 100%; /* Full width for mobile */
+		padding: 10px;
+	}
+
+	.article-card {
+		min-width: 100%; /* Make cards full width */
+		font-size: 14px; /* Adjust font size */
+		padding: 10px; /* Reduce padding */
+	}
+
+	#article-card-image-container {
+		height: 200px; /* Adjust image size */
+	}
+
+	/* Buttons */
+	button,
+	select {
+		width: 100%; /* Full width for buttons */
+		font-size: 14px; /* Smaller font size */
+		padding: 0.6em 1em; /* Adjust padding */
+	}
+
+	/* Single Article */
+	.single-article {
+		width: 90%; /* Reduce the width of the article */
+		padding: 15px; /* Reduce padding */
+	}
+
+	#article-body-text {
+		font-size: 16px; /* Reduce font size */
+	}
+
+	/* Comment Form */
+	.comment-form {
+		width: 100%; /* Full width for comment form */
+	}
+
+	#comment-form-input {
+		width: 90%; /* Adjust input width */
+		font-size: 14px; /* Adjust font size */
+	}
+
+	/* Topic Cards */
+	.topic-card {
+		flex-direction: column; /* Stack topic cards vertically */
+		gap: 10px; /* Adjust gap */
+		padding: 15px; /* Adjust padding */
+		width: 100%; /* Full width */
+	}
+
+	#topic-img {
+		width: 20%; /* Resize topic image */
+	}
+
+	/* Profile */
+	#user-profile {
+		grid-template-columns: 1fr; /* Stack profile info vertically */
+		grid-template-rows: auto;
+		width: 100%; /* Full width for profile */
+	}
+
+	#profile-pic {
+		width: 6rem; /* Resize profile picture */
+	}
+
+	/* Back button */
+	.back-button {
+		margin: 5% 0 0 10%; /* Adjust margin */
+	}
+}
+
+/* For very small screens (like phones in portrait mode) */
+@media (max-width: 480px) {
+	/* Header */
+	header {
+		height: 5.5rem; /* Smaller header */
+	}
+
+	.user-logo {
+		height: 4em; /* Smaller user logo */
+	}
+
+	/* Article Cards */
+	.article-card {
+		font-size: 13px; /* Smaller font for cards */
+	}
+
+	/* Buttons */
+	button,
+	select {
+		font-size: 12px; /* Smaller font for buttons */
+	}
+
+	/* Single Article */
+	.single-article {
+		width: 100%; /* Full width for single article */
+	}
+
+	/* Topic Cards */
+	.topic-card {
+		padding: 10px; /* Reduced padding */
+	}
 }
