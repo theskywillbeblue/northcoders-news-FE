@@ -1,43 +1,25 @@
-import { useEffect, useState, useContext } from 'react';
+import { getCommentsByArtId, deleteCommentById } from '../api.js';
 import { UserContext } from '../Contexts/userContext.jsx';
-import {
-	getCommentsByArtId,
-	postCommentByArtId,
-	deleteCommentById,
-} from '../api.js';
-import { FaRegComment } from 'react-icons/fa';
+import { useEffect, useState, useContext } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
+import { FaRegComment } from 'react-icons/fa';
 
-export default function Comments({ article_id, showCommentForm }) {
+
+export default function Comments({ article_id }) {
 	const { user } = useContext(UserContext);
 	const [comments, setComments] = useState([]);
-	const [commentBody, setCommentBody] = useState('');
 
 	useEffect(() => {
 		getCommentsByArtId(article_id).then(({ comments }) => {
 			setComments(comments);
 		});
-	}, [article_id]);
-
-	const handleCommentSubmit = (e) => {
-		e.preventDefault();
-		postCommentByArtId(article_id, commentBody)
-			.then(() => {
-				setCommentBody('');
-
-				return getCommentsByArtId(article_id);
-			})
-			.then(({ comments }) => {
-				setComments(comments);
-			})
-			.catch((err) => SetErr(err));
-	};
+	}, [comments]);
 
 	const handleDeleteComment = (comment_id) => {
 		deleteCommentById(comment_id);
-		
-			return getCommentsByArtId(article_id)
-			.then(({comments}) => {
+
+		return getCommentsByArtId(article_id)
+			.then(({ comments }) => {
 				setComments(comments);
 				alert('Comment successfully removed');
 			})
@@ -61,25 +43,13 @@ export default function Comments({ article_id, showCommentForm }) {
 						{comment.votes}
 						{comment.author === user.username ? (
 							<MdDeleteOutline
-								id='trash-icon'
+								id='trash-icon' size='20px'
 								onClick={() => handleDeleteComment(comment.comment_id)}
 							/>
 						) : null}
 					</li>
 				))}
 			</ul>
-			{showCommentForm && (
-				<form onSubmit={handleCommentSubmit} className='comment-form'>
-					<textarea
-						id='comment-form-input'
-						type='text'
-						value={commentBody}
-						onChange={(e) => setCommentBody(e.target.value)}
-						placeholder='pop your comment here...'
-						required></textarea>
-					<button type='submit'>Post</button>
-				</form>
-			)}
 		</>
 	);
 }

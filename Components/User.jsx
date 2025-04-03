@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 import {getTopics} from '../api'
 import { useEffect, useState } from 'react';
 import TopicCard from './TopicCard';
+import { Button } from "flowbite-react";
 
 export default function User() {
 	const [topicList, setTopicList] = useState([]);
