@@ -5,11 +5,14 @@ import Article from '../Components/Article'
 import {Route, Routes} from "react-router"
 import './App.css'
 import { UserProvider } from '../Contexts/userContext.jsx'
+import { PrimeReactProvider } from 'primereact/api';
+
 
 
 function App() {
 
   return (
+    <PrimeReactProvider>
     <UserProvider>
     <>
      <Header />
@@ -20,6 +23,7 @@ function App() {
       </Routes>
     </>
     </UserProvider>
+    </PrimeReactProvider>
   )
 }
 

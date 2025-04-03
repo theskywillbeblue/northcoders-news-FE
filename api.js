@@ -4,10 +4,11 @@ const api = axios.create({
 	baseURL: 'https://northcoders-news-app-jog4.onrender.com/api',
 });
 
-async function getArticles(article_id, topic) {
+async function getArticles(article_id, topic, sortBy, order) {
 	try {
 		const endpoint = article_id ? `/articles/${article_id}` : '/articles';
-		const response = await api.get(endpoint, { params: { topic } });
+		const response = await api.get(endpoint, { params: { topic, sort_by: sortBy,
+			order } });
 		return response.data;
 	} catch (err) {
 		throw err;

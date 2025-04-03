@@ -86,6 +86,26 @@ button:hover {
 	margin: 1% 1% 0 7.5%;
 }
 
+#sort-by-container{
+	margin-top: 25px;
+	margin-bottom: 6px;
+	display: flex;
+	justify-content: center;
+}
+#sortby-selector, #orderby-selector{
+	width: 180px;
+	height: 45px;
+	border: none;
+	transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+
+.p-dropdown:focus-within {
+    box-shadow: 0 0 5px #a5aa93 !important; /* Custom glow */
+    border-color: #a5aa93 !important;
+}
+
+
 .articles-grid {
 	display: grid;
 	justify-content: center;
@@ -326,4 +346,10 @@ h2 {
 #topic-img {
 	width: 10%;
 	border-radius: 18%;
+}
+
+#loading {
+	text-align: center;
+	padding-top: 95px;
+	font-size: larger;
 }
