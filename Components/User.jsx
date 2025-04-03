@@ -24,7 +24,7 @@ export default function User() {
 				<button>Browse All Articles</button>
 			</Link>
 
-			<h2 id="select-topic-header">Select articles by topic</h2>
+			<h2 id="select-topic-header">Browse articles by topic</h2>
 			<ul>
 				{topicList.map((topic) => {
 					return <TopicCard key={topic.slug} topic={topic.slug} />;
