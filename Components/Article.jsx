@@ -1,10 +1,9 @@
-import { getArticles, patchVotesByArtId, postCommentByArtId} from '../api'
+import { getArticles, patchVotesByArtId, postCommentByArtId } from '../api';
 import { BiUpvote, BiDownvote } from 'react-icons/bi';
 import { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router';
 import { FaRegComment } from 'react-icons/fa';
 import Comments from './Comments';
-
 
 export default function Article() {
 	const [showCommentForm, setShowCommentForm] = useState(false);
@@ -16,8 +15,6 @@ export default function Article() {
 	const commentsRef = useRef(null);
 	const initialVotes = 0;
 	const [votes, setVotes] = useState(initialVotes);
-	
-
 
 	useEffect(() => {
 		setError(null);
@@ -27,12 +24,11 @@ export default function Article() {
 				setArticle(article);
 				setVotes(article.votes);
 				setIsLoading(false);
-			}).catch((err) => {
-				setError(err);
 			})
-			
+			.catch((err) => {
+				setError(err);
+			});
 	}, [article_id]);
-
 
 	const handleVote = (vote) => {
 		patchVotesByArtId(article_id, vote)
@@ -54,20 +50,13 @@ export default function Article() {
 			})
 			.catch(() => {});
 	};
-	
 
 	if (isLoading) {
-		return (
-			<div align='center' padding-top='80px'>
-				article on the way...
-			</div>
-		);
+		return <div id='loading'>article incoming...</div>;
 	}
 	if (error) {
 		return <p>{error}</p>;
 	}
-
-
 
 	return (
 		<>
@@ -80,17 +69,15 @@ export default function Article() {
 				<br />
 				<div id='single-article-buttons'>
 					<div className='vote-button-group'>
-						
-							<button id='upvote-button' onClick={() => handleVote(1)}>
-								<BiUpvote id='arrow-vote-icons' size={23} />
-							</button>
+						<button id='upvote-button' onClick={() => handleVote(1)}>
+							<BiUpvote id='arrow-vote-icons' size={23} />
+						</button>
 
-							<button className='votes-digit-button'>{votes}</button>
+						<button className='votes-digit-button'>{votes}</button>
 
-							<button id='downvote-button' onClick={() => handleVote(-1)}>
-								<BiDownvote id='arrow-vote-icons' size={23} />
-							</button>
-						
+						<button id='downvote-button' onClick={() => handleVote(-1)}>
+							<BiDownvote id='arrow-vote-icons' size={23} />
+						</button>
 
 						<button
 							className='see-comments-button'
@@ -100,7 +87,6 @@ export default function Article() {
 							<FaRegComment id='comment-icon' size={23} />
 							{article.comment_count}
 						</button>
-					
 					</div>
 				</div>
 				<br />
@@ -113,26 +99,24 @@ export default function Article() {
 				<br />
 				<p id='article-body-text'>{article.body}</p>
 				{!showCommentForm && (
-				<button
-							className='post-comment-button'
-							onClick={() => setShowCommentForm(!showCommentForm)}>
-							<FaRegComment id='comment-icon' size={23} /> Post a comment
-						</button>
-						)}
+					<button
+						className='post-comment-button'
+						onClick={() => setShowCommentForm(!showCommentForm)}>
+						<FaRegComment id='comment-icon' size={23} /> Post a comment
+					</button>
+				)}
 				{showCommentForm && (
-					
-				<form onSubmit={handleCommentSubmit} className='comment-form'>
-					<textarea
-						id='comment-form-input'
-						type='text'
-						value={commentBody}
-						onChange={(e) => setCommentBody(e.target.value)}
-						placeholder='pop your comment in here...'
-						required></textarea>
-					<button type='submit'>Post</button>
-				</form>
-				
-			)}
+					<form onSubmit={handleCommentSubmit} className='comment-form'>
+						<textarea
+							id='comment-form-input'
+							type='text'
+							value={commentBody}
+							onChange={(e) => setCommentBody(e.target.value)}
+							placeholder='pop your comment in here...'
+							required></textarea>
+						<button type='submit'>Post</button>
+					</form>
+				)}
 				<div ref={commentsRef}>
 					<Comments article_id={article_id} showCommentForm={showCommentForm} />
 				</div>
