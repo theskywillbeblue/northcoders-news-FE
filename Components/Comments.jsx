@@ -4,6 +4,7 @@ import { useEffect, useState, useContext } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { FaRegComment } from 'react-icons/fa';
 
+
 export default function Comments({ article_id }) {
 	const { user } = useContext(UserContext);
 	const [comments, setComments] = useState([]);

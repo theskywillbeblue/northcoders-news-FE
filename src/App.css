@@ -58,11 +58,11 @@ header {
 }
 
 .logo {
-	width: 22rem;
+	width: 28rem;
 	max-width: 80%;
 	filter: drop-shadow(3px 4px 6px rgba(0, 0, 0, 0.13));
 	height: auto;
-	transition: filter 1.2s ease-in-out;
+	transition: transform 1.5s ease-in-out;
 
 }
 

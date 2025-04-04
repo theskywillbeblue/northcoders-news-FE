@@ -1,4 +1,4 @@
-import { getArticles, patchVotesByArtId, postCommentByArtId } from '../api';
+import { getArticles, patchVotesByArtId, postCommentByArtId, getCommentsByArtId } from '../api';
 import { BiUpvote, BiDownvote } from 'react-icons/bi';
 import { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router';
@@ -15,6 +15,7 @@ export default function Article() {
 	const commentsRef = useRef(null);
 	const initialVotes = 0;
 	const [votes, setVotes] = useState(initialVotes);
+	const [comments, setComments] = useState([]);
 
 	const handleVote = (vote) => {
 		patchVotesByArtId(article_id, vote)
@@ -36,7 +37,8 @@ export default function Article() {
 			.then(({ comments }) => {
 				setComments(comments);
 			})
-			.catch(() => {
+			.catch((err) => {
+				console.log(err)
 				setError('Houston, we have a problem!');
 			});
 	};
@@ -50,9 +52,12 @@ export default function Article() {
 				setIsLoading(false);
 			})
 			.catch((err) => {
+				console.log(err);
 				if (err.message.includes('404')) {
 					setError('Article not found!');
-				} else setError('Houston, we have a problem!');
+				} else {
+					setError(null);
+				}
 				setIsLoading(false);
 			});
 	}, [article_id]);
