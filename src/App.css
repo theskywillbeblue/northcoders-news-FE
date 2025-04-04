@@ -45,20 +45,25 @@ a:hover {
 }
 
 header {
+	background: #e8e4e1;
+}
+
+#header-content{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: #e8e4e1;
-	width: 100vw;
+	width: 100%;
 	height: 8.5rem;
 	position: relative;
 }
 
 .logo {
-	width: 100%;
+	width: 22rem;
+	max-width: 80%;
 	filter: drop-shadow(3px 4px 6px rgba(0, 0, 0, 0.13));
 	height: auto;
 	transition: filter 1.2s ease-in-out;
+
 }
 
 .user-logo {
@@ -67,7 +72,7 @@ header {
 	height: 4em;
 	transition: filter 0.3s ease-in-out;
 	position: absolute;
-	right: 8%;
+	right: 4%;
 	top: 50%;
 	transform: translateY(-50%);
 }
@@ -83,7 +88,7 @@ header {
 
 .line {
 	background: #bbbdb3;
-	height: 0.5px;
+	height: 0.1em;
 	width: 100%;
 }
 
@@ -104,6 +109,7 @@ button:hover {
 }
 
 .back-button {
+	width: 10rem;
 	display: inline-block;
 	margin: 2% 1% 0 10%;
 }
@@ -136,7 +142,7 @@ button:hover {
 .articles-grid {
 	display: grid;
 	gap: 19px;
-	grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(358px, 1fr));
 	justify-content: center;
 	margin: 0 auto;
 	max-width: 1800px;
@@ -188,7 +194,7 @@ button:hover {
 	width: 100%;
 }
 
-/* Single Article */
+/* Single Article container */
 
 .single-article {
 	align-items: center;
@@ -198,12 +204,12 @@ button:hover {
 	margin: 0 auto;
 	max-width: 1400px;
 	padding: 20px;
-	width: 75%;
 }
 
+/* article title */
 h2 {
 	filter: drop-shadow(2px 4px 2px rgba(0, 0, 0, 0.2b));
-	font-size: 2rem;
+	font-size: 1.8em;
 	margin-bottom: 10px;
 	text-align: center;
 }
@@ -226,7 +232,7 @@ h2 {
 	border-radius: 8px;
 	filter: drop-shadow(6px 9px 6px rgba(0, 0, 0, 0.2));
 	margin-bottom: 3px;
-	width: 90%;
+	width: 85%;
 }
 
 #comment-icon {
@@ -260,7 +266,7 @@ h2 {
 	margin: 6px;
 	padding: 8px 15px 5px 15px;
 	text-align: left;
-	width: 80%;
+	width: 85%;
 }
 
 .comment-card:hover {
@@ -283,7 +289,6 @@ h2 {
 .author-date h4 {
 	display: flex;
 	flex-direction: row;
-	width: 112px;
 }
 
 #single-article-buttons {
@@ -423,126 +428,3 @@ h2 {
 	width: 8rem;
 }
 
-
-
-/* new media queries added */
-
-
-/* Responsive adjustments for mobile */
-@media (max-width: 768px) {
-	/* Header */
-	header {
-		height: 6rem; /* Adjust header height */
-	}
-
-	.user-logo {
-		height: 4.5em; /* Resize user logo */
-		right: 5%; /* Move the logo closer */
-	}
-
-	/* Article Cards */
-	.articles-grid {
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust grid */
-		width: 100%; /* Full width for mobile */
-		padding: 10px;
-	}
-
-	.article-card {
-		min-width: 100%; /* Make cards full width */
-		font-size: 14px; /* Adjust font size */
-		padding: 10px; /* Reduce padding */
-	}
-
-	#article-card-image-container {
-		height: 200px; /* Adjust image size */
-	}
-
-	/* Buttons */
-	button,
-	select {
-		width: 100%; /* Full width for buttons */
-		font-size: 14px; /* Smaller font size */
-		padding: 0.6em 1em; /* Adjust padding */
-	}
-
-	/* Single Article */
-	.single-article {
-		width: 90%; /* Reduce the width of the article */
-		padding: 15px; /* Reduce padding */
-	}
-
-	#article-body-text {
-		font-size: 16px; /* Reduce font size */
-	}
-
-	/* Comment Form */
-	.comment-form {
-		width: 100%; /* Full width for comment form */
-	}
-
-	#comment-form-input {
-		width: 90%; /* Adjust input width */
-		font-size: 14px; /* Adjust font size */
-	}
-
-	/* Topic Cards */
-	.topic-card {
-		flex-direction: column; /* Stack topic cards vertically */
-		gap: 10px; /* Adjust gap */
-		padding: 15px; /* Adjust padding */
-		width: 100%; /* Full width */
-	}
-
-	#topic-img {
-		width: 20%; /* Resize topic image */
-	}
-
-	/* Profile */
-	#user-profile {
-		grid-template-columns: 1fr; /* Stack profile info vertically */
-		grid-template-rows: auto;
-		width: 100%; /* Full width for profile */
-	}
-
-	#profile-pic {
-		width: 6rem; /* Resize profile picture */
-	}
-
-	/* Back button */
-	.back-button {
-		margin: 5% 0 0 10%; /* Adjust margin */
-	}
-}
-
-/* For very small screens (like phones in portrait mode) */
-@media (max-width: 480px) {
-	/* Header */
-	header {
-		height: 5.5rem; /* Smaller header */
-	}
-
-	.user-logo {
-		height: 4em; /* Smaller user logo */
-	}
-
-	/* Article Cards */
-	.article-card {
-		font-size: 13px; /* Smaller font for cards */
-	}
-
-	/* Buttons */
-	button,
-	select {
-		font-size: 12px; /* Smaller font for buttons */
-	}
-
-	/* Single Article */
-	.single-article {
-		width: 100%; /* Full width for single article */
-	}
-
-	/* Topic Cards */
-	.topic-card {
-		padding: 10px; /* Reduced padding */
-	}
-}
