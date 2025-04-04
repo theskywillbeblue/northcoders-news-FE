@@ -60,8 +60,9 @@ header {
 .logo {
 	width: 28rem;
 	max-width: 80%;
-	filter: drop-shadow(3px 4px 6px rgba(0, 0, 0, 0.13));
 	height: auto;
+	padding-left: 3%;
+	filter: drop-shadow(3px 4px 6px rgba(0, 0, 0, 0.13));
 	transition: transform 1.5s ease-in-out;
 
 }
@@ -280,11 +281,6 @@ h2 {
 	margin: 4px 6px 0 0;
 }
 
-#trash-icon {
-	grid-column: 3;
-	grid-row: 2;
-	justify-self: end;
-}
 
 .author-date h4 {
 	display: flex;
@@ -428,3 +424,23 @@ h2 {
 	width: 8rem;
 }
 
+.p-button.p-component.p-button{
+	color: black
+}
+
+.p-button.p-component.p-button:focus{
+	border-color: #a5aa93 !important;
+	box-shadow: 0 0 5px #a5aa93 !important;
+}
+
+.p-toast-icon-close.p-link{
+all: unset;
+cursor: pointer;
+}
+
+
+  #trash-can{
+	grid-column: 3;
+	grid-row: 2;
+	justify-self: end;
+  }

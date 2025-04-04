@@ -1,13 +1,19 @@
 import { getCommentsByArtId, deleteCommentById } from '../api';
 import { UserContext } from '../Contexts/userContext';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { FaRegComment } from 'react-icons/fa';
+import 'primereact/resources/themes/lara-light-cyan/theme.css';
+import { Toast } from 'primereact/toast';
+import { ConfirmPopup, confirmPopup } from 'primereact/confirmpopup';
 
 
 export default function Comments({ article_id }) {
 	const { user } = useContext(UserContext);
 	const [comments, setComments] = useState([]);
+	const toast = useRef(null);
+
+	const trashCanButton = useRef(null);
 
 	useEffect(() => {
 		getCommentsByArtId(article_id).then(({ comments }) => {
@@ -15,21 +21,43 @@ export default function Comments({ article_id }) {
 		});
 	}, [comments]);
 
-	const handleDeleteComment = (comment_id) => {
-		deleteCommentById(comment_id);
+	const handleDeleteComment = (e, comment_id) => {
 
-		return getCommentsByArtId(article_id)
-			.then(({ comments }) => {
-				setComments(comments);
-				alert('Comment successfully removed');
-			})
-			.catch(() => {
-				alert('There was an error deleting the comment. Please try again.');
-			});
+		const accept = () => {
+			deleteCommentById(comment_id);
+			toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'Comment deleted successfully', life: 3000 });
+			return getCommentsByArtId(article_id)
+				.then(({ comments }) => {
+					setComments(comments);
+				})
+				.catch(() => {
+					toast.current.show({ severity: 'error', summary: 'Error', detail: 'Could not delete your comment, try again later', life: 3000 });;
+				});
+			
+		};
+	
+		const reject = () => {
+			toast.current.show({ severity: 'warn', summary: 'Rejected', detail: 'You said no', life: 3000 });
+		};
+
+		console.log(e.currentTarget)
+		confirmPopup({
+
+            target: e.currentTarget.parentElement,
+            message: 'Are you sure you want to delete this comment?',
+            icon: 'pi pi-info-circle',
+            defaultFocus: 'reject',
+            acceptClassName: 'p-button-danger',
+            accept,
+            reject
+        });
+
+
 	};
 
 	return (
 		<>
+				<ConfirmPopup />
 			<ul className='comments-all-container'>
 				{comments.map((comment) => (
 					<li className='comment-card' key={comment.comment_id}>
@@ -42,11 +70,21 @@ export default function Comments({ article_id }) {
 						Votes:
 						{comment.votes}
 						{comment.author === user.username ? (
-							<MdDeleteOutline
-								id='trash-icon'
-								size='20px'
-								onClick={() => handleDeleteComment(comment.comment_id)}
-							/>
+							<>
+								<Toast ref={toast} position='center' />
+						<span id='trash-can'>
+								<MdDeleteOutline
+								icon="pi pi-times"
+								label="Delete"
+						
+								
+									id='trash-icon'
+									size='20px'
+									onClick={(e) => handleDeleteComment(e, comment.comment_id)}
+									
+								/>
+								</span>
+							</>
 						) : null}
 					</li>
 				))}

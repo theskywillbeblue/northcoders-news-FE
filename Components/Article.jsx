@@ -4,8 +4,14 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router';
 import { FaRegComment } from 'react-icons/fa';
 import Comments from './Comments';
+import 'primereact/resources/themes/lara-light-cyan/theme.css';
+import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 
 export default function Article() {
+
+	const toast = useRef(null);
+
 	const [showCommentForm, setShowCommentForm] = useState(false);
 	const [commentBody, setCommentBody] = useState('');
 	const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +29,7 @@ export default function Article() {
 				setVotes(article.votes);
 			})
 			.catch(() => {
-				setError('Houston, we have a problem!');
+				setError('Houston, we have a problem voting!');
 			});
 	};
 
@@ -31,15 +37,15 @@ export default function Article() {
 		e.preventDefault();
 		postCommentByArtId(article_id, commentBody)
 			.then(() => {
+				toast.current.show({ severity: 'success', summary: '  Success!', detail: '  Your comment was posted.' });
 				setCommentBody('');
 				return getCommentsByArtId(article_id);
 			})
 			.then(({ comments }) => {
 				setComments(comments);
 			})
-			.catch((err) => {
-				console.log(err)
-				setError('Houston, we have a problem!');
+			.catch(() => {
+				setError('Houston, we have a problem commenting!');
 			});
 	};
 
@@ -127,7 +133,8 @@ export default function Article() {
 							onChange={(e) => setCommentBody(e.target.value)}
 							placeholder='pop your comment in here...'
 							required></textarea>
-						<button type='submit'>Post</button>
+							  <Toast ref={toast} position="center"/>
+						<Button type='submit'>Post</Button>
 					</form>
 				)}
 				<div ref={commentsRef}>
