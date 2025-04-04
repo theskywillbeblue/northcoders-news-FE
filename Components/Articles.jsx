@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router';
+import { useSearchParams, Link } from 'react-router';
 import { useState, useEffect } from 'react';
 import { getArticles } from '../api';
 import { Dropdown } from 'primereact/dropdown';
@@ -119,6 +119,9 @@ export default function Articles() {
 					/>
 					<label htmlFor='sorting articles'>Order By</label>
 				</FloatLabel>
+				<Link to='/topics'>
+				<button id="browse-by-topic-button" >Or browse by topic...</button>
+			</Link>
 			</div>
 
 			<ul className='articles-grid'>

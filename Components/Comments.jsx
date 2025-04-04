@@ -13,7 +13,6 @@ export default function Comments({ article_id }) {
 	const [comments, setComments] = useState([]);
 	const toast = useRef(null);
 
-	const trashCanButton = useRef(null);
 
 	useEffect(() => {
 		getCommentsByArtId(article_id).then(({ comments }) => {
@@ -25,19 +24,19 @@ export default function Comments({ article_id }) {
 
 		const accept = () => {
 			deleteCommentById(comment_id);
-			toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'Comment deleted successfully', life: 3000 });
+			toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'Comment deleted successfully', life: 2600 });
 			return getCommentsByArtId(article_id)
 				.then(({ comments }) => {
 					setComments(comments);
 				})
 				.catch(() => {
-					toast.current.show({ severity: 'error', summary: 'Error', detail: 'Could not delete your comment, try again later', life: 3000 });;
+					toast.current.show({ severity: 'error', summary: 'Error', detail: 'Could not delete your comment, try again later', life: 2600 });;
 				});
 			
 		};
 	
 		const reject = () => {
-			toast.current.show({ severity: 'warn', summary: 'Rejected', detail: 'You said no', life: 3000 });
+			
 		};
 
 		console.log(e.currentTarget)
@@ -46,7 +45,7 @@ export default function Comments({ article_id }) {
             target: e.currentTarget.parentElement,
             message: 'Are you sure you want to delete this comment?',
             icon: 'pi pi-info-circle',
-            defaultFocus: 'reject',
+            defaultFocus: 'none',
             acceptClassName: 'p-button-danger',
             accept,
             reject
@@ -79,7 +78,7 @@ export default function Comments({ article_id }) {
 						
 								
 									id='trash-icon'
-									size='20px'
+									size='22px'
 									onClick={(e) => handleDeleteComment(e, comment.comment_id)}
 									
 								/>
