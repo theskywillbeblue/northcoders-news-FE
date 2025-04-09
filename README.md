@@ -1,12 +1,25 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+NC News Now
 
-Currently, two official plugins are available:
+A functioning news site with articles, comments and a voting system. This reddit-like user interface consumes my NC-News API. Users can view and sort all articles, see those articles filtered by topic, vote on articles, and post or delete comments on individual articles.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The hosted version of this app can be found here: nc-news-now.netlify.app
 
-## Expanding the ESLint configuration
+The hosted back-end API for this app can be found here: https://northcoders-news-app-jog4.onrender.com/api
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Getting Started
+You can run a local version of this app by doing the following:
+
+Make sure you have Node.js (min. v23.6.0) installed. The following instructions also assume the use of NPM (Node Package Manager) to manage the project dependencies.
+
+Clone this repo locally using the command git clone https://github.com/theskywillbeblue/northcoders-news-FE
+
+Install all dependencies by navigating to the root directory cd northcoders-news-FE and running npm i.
+
+To then run this project locally, use the command npm run dev
+
+Now you're ready. Enjoy!
+
+-----------------------------------------------------------------------
+
+

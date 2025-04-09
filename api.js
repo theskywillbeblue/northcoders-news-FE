@@ -65,6 +65,21 @@ async function getTopics() {
 	}
 }
 
+async function postArticle(newArticle, username) {
+	try {
+		const response = await api.post('/articles', {
+			title: newArticle.title,
+			topic: newArticle.topic,
+			author: username,
+			body: newArticle.body,
+			article_img_url: newArticle.article_img_url,
+		});
+		return response.data;
+	} catch (err) {
+		throw err;
+	}
+}
+
 export {
 	getArticles,
 	getCommentsByArtId,
@@ -72,5 +87,6 @@ export {
 	postCommentByArtId,
 	deleteCommentById,
 	getTopics,
+	postArticle
 };
 

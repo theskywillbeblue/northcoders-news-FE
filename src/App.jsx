@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route } from 'react-router';
+import { Routes, Route } from 'react-router-dom';
 import { UserProvider } from '../Contexts/userContext';
 import { PrimeReactProvider } from 'primereact/api';
 
@@ -18,6 +18,7 @@ function App() {
 		<PrimeReactProvider>
 			<UserProvider>
 				<Header />
+				<main>
 				<Routes>
 					<Route path='/' element={<Articles />} />
 					<Route path='/articles' element={<Articles />} />
@@ -26,6 +27,7 @@ function App() {
 					<Route path='/articles/:article_id' element={<Article />} />
 					<Route path='*' element={<NotFound />} />
 				</Routes>
+				</main>
 			</UserProvider>
 		</PrimeReactProvider>
 	);

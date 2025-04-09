@@ -1,9 +1,9 @@
-import { useSearchParams, Link } from 'react-router';
+import { useSearchParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getArticles } from '../api';
 import { Dropdown } from 'primereact/dropdown';
-import { FloatLabel } from 'primereact/floatlabel'
-import ArticleCard from './ArticleCard';;
+import { FloatLabel } from 'primereact/floatlabel';
+import ArticleCard from './ArticleCard';
 import 'primereact/resources/themes/lara-light-cyan/theme.css';
 
 export default function Articles() {
@@ -40,28 +40,21 @@ export default function Articles() {
 		}
 	};
 
+	// handle search params
 	useEffect(() => {
-		if (!sortBy) {
-			setSearchParams((prev) => {
-				const newParams = new URLSearchParams(prev);
-				newParams.set('sort_by', 'created_at');
-				return newParams;
-			});
+		const newParams = new URLSearchParams(searchParams);
+	
+		if (!newParams.get('sort_by')) {
+			newParams.set('sort_by', 'created_at');
 		}
-		if (!order) {
-			setSearchParams((prev) => {
-				const newParams = new URLSearchParams(prev);
-				newParams.set('order', 'desc');
-				return newParams;
-			});
+		if (!newParams.get('order')) {
+			newParams.set('order', 'desc');
 		}
-	}, [sortBy, order, setSearchParams]);
+	
+		setSearchParams(newParams);
+	}, []);
 
-	useEffect(() => {
-		setSelectedOption(sortBy);
-		setSelectedOrder(order);
-	}, [sortBy, order]);
-
+	// handle data fetch
 	useEffect(() => {
 		setIsLoading(true);
 		getArticles(null, topic, sortBy, order)
@@ -70,7 +63,7 @@ export default function Articles() {
 				setIsLoading(false);
 			})
 			.catch((err) => {
-				console.log(err)
+				console.log(err);
 				if (err.message.includes('404')) {
 					setError('Currently, there are no articles for that topic!');
 				} else setError('Houston, we have a problem!');
@@ -108,7 +101,7 @@ export default function Articles() {
 						onChange={(e) => handleSortChange(e.value)}
 						options={sortOptions}
 					/>
-					<label htmlFor='sorting articles'>Sort By</label>
+					<label htmlFor='sorting-selector'>Sort By</label>
 				</FloatLabel>
 				<FloatLabel id='orderby-label'>
 					<Dropdown
@@ -117,11 +110,11 @@ export default function Articles() {
 						onChange={(e) => handleOrderChange(e.value)}
 						options={orderOptions}
 					/>
-					<label htmlFor='sorting articles'>Order By</label>
+					<label htmlFor='order-selector'>Order By</label>
 				</FloatLabel>
 				<Link to='/topics'>
-				<button id="browse-by-topic-button" >Or browse by topic...</button>
-			</Link>
+					<button id='browse-by-topic-button'>Or browse by topic...</button>
+				</Link>
 			</div>
 
 			<ul className='articles-grid'>

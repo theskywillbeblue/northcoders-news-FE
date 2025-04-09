@@ -1,4 +1,3 @@
-import { getArticles, patchVotesByArtId, postCommentByArtId, getCommentsByArtId } from '../api';
 import { BiUpvote, BiDownvote } from 'react-icons/bi';
 import { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router';
@@ -6,49 +5,28 @@ import { FaRegComment } from 'react-icons/fa';
 import Comments from './Comments';
 import 'primereact/resources/themes/lara-light-cyan/theme.css';
 import { Button } from 'primereact/button';
-import { Toast } from 'primereact/toast';
+
+import {
+	getArticles,
+	patchVotesByArtId,
+	postCommentByArtId,
+	getCommentsByArtId,
+} from '../api';
 
 export default function Article() {
-
-	const toast = useRef(null);
+	const { article_id } = useParams();
 
 	const [showCommentForm, setShowCommentForm] = useState(false);
 	const [commentBody, setCommentBody] = useState('');
 	const [isLoading, setIsLoading] = useState(true);
+	const [comments, setComments] = useState([]);
 	const [article, setArticle] = useState({});
 	const [error, setError] = useState(null);
-	const { article_id } = useParams();
 	const commentsRef = useRef(null);
 	const initialVotes = 0;
 	const [votes, setVotes] = useState(initialVotes);
-	const [comments, setComments] = useState([]);
 
-	const handleVote = (vote) => {
-		patchVotesByArtId(article_id, vote)
-			.then(({ article }) => {
-				setVotes(article.votes);
-			})
-			.catch(() => {
-				setError('Houston, we have a problem voting!');
-			});
-	};
-
-	const handleCommentSubmit = (e) => {
-		e.preventDefault();
-		postCommentByArtId(article_id, commentBody)
-			.then(() => {
-				toast.current.show({ severity: 'success', summary: '  Success!', detail: '  Your comment was posted.' });
-				setCommentBody('');
-				return getCommentsByArtId(article_id);
-			})
-			.then(({ comments }) => {
-				setComments(comments);
-			})
-			.catch(() => {
-				setError('Houston, we have a problem commenting!');
-			});
-	};
-
+	// handle data fetch
 	useEffect(() => {
 		setIsLoading(true);
 		getArticles(article_id)
@@ -68,9 +46,44 @@ export default function Article() {
 			});
 	}, [article_id]);
 
+	// handle voting
+	const handleVote = (vote) => {
+		patchVotesByArtId(article_id, vote)
+			.then(({ article }) => {
+				setVotes(article.votes);
+			})
+			.catch(() => {
+				setError('Houston, we have a problem voting!');
+			});
+	};
+
+	// handle commenting
+	const handleCommentSubmit = (e) => {
+		e.preventDefault();
+		postCommentByArtId(article_id, commentBody)
+			.then(() => {
+				toast.current.show({
+					severity: 'success',
+					summary: '  Success!',
+					detail: '  Your comment was posted.',
+				});
+				setCommentBody('');
+				return getCommentsByArtId(article_id);
+			})
+			.then(({ comments }) => {
+				setComments(comments);
+			})
+			.catch(() => {
+				setError('Houston, we have a problem commenting!');
+			});
+	};
+
+	// loading state
 	if (isLoading) {
 		return <div id='loading-and-errors'>Article incoming...</div>;
 	}
+
+	// error state
 	if (error) {
 		return (
 			<div id='loading-and-errors'>Houston, we have a problem, {error}</div>
@@ -133,7 +146,6 @@ export default function Article() {
 							onChange={(e) => setCommentBody(e.target.value)}
 							placeholder='pop your comment in here...'
 							required></textarea>
-							  <Toast ref={toast} position="center"/>
 						<Button type='submit'>Post</Button>
 					</form>
 				)}
