@@ -3,9 +3,13 @@ NC News Now
 
 A functioning news site with articles, comments and a voting system. This reddit-like user interface consumes my NC-News API. Users can view and sort all articles, see those articles filtered by topic, vote on articles, and post or delete comments on individual articles.
 
-The hosted version of this app can be found here: nc-news-now.netlify.app
+
+The hosted version of this app can be found here: https://nc-news-now.netlify.app
 
 The hosted back-end API for this app can be found here: https://northcoders-news-app-jog4.onrender.com/api
+
+The backend repo for this project can be found here: https://github.com/theskywillbeblue/Northcoders-News-app
+
 
 Getting Started
 You can run a local version of this app by doing the following:

@@ -147,14 +147,7 @@ export default function User() {
 							required
 							maxLength={100}
 						/>
-						<textarea
-							id='article-form-input'
-							type='text'
-							placeholder='write your article here...'
-							value={article.body}
-							onChange={(e) => setArticle({ ...article, body: e.target.value })}
-							required></textarea>
-						<input
+							<input
 							type='url'
 							id='image-url-input'
 							placeholder='Image URL'
@@ -164,6 +157,13 @@ export default function User() {
 							}
 							required
 						/>
+						<textarea
+							id='article-body-input'
+							type='text'
+							value={article.body}
+							onChange={(e) => setArticle({ ...article, body: e.target.value })}
+							required></textarea>
+					
 						<Button type='submit' id='post-button'>
 							Post
 						</Button>
